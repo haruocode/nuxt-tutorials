@@ -43,13 +43,7 @@
 
 <script setup>
 // オブジェクト配列を設定する
-// const customers = [
-//   {
-//     name: "大阪 太郎",
-//     email: "taro.osaka@windster.com",
-//     image: "https://pbs.twimg.com/profile_images/1057083258997956608/NWYuC6qb_400x400.jpg",
-//     amount: 5729,
-//   },
+// const customers = ref([
 //   {
 //     name: "Bonnie Green",
 //     email: "bonnie@windster.com",
@@ -74,5 +68,11 @@
 //     image: "https://randomuser.me/api/portraits/women/56.jpg",
 //     amount: 2367,
 //   },
-// ];
+//   {
+//     name: "大阪 太郎",
+//     email: "taro.osaka@windster.com",
+//     image: "https://pbs.twimg.com/profile_images/1057083258997956608/NWYuC6qb_400x400.jpg",
+//     amount: 572,
+//   },
+// ])
 </script>
