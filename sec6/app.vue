@@ -3,14 +3,15 @@
     <header class="flex items-center gap-4">
       <div class="text-xl text-slate-300">大阪コード学園</div>
       <div class="flex gap-4">
-        <button @click="deleteCustomer()" class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete First Customer</button>
+        <button @click="deleteCustomer()"
+          class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete First Customer</button>
         <!-- TODO 顧客が1名以上選択されている場合に表示させる -->
-        <button @click="deleteSelectedCustomer()" class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete Selected Customer</button>
+        <button @click="deleteSelectedCustomer()"
+          class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete Selected Customer</button>
       </div>
     </header>
     <div class="flex gap-8 p-5 bg-gray-900 antialiased">
-      <div
-        class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
+      <div class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
         <div class="flex items-center justify-between mb-4">
           <h5 class="text-xl font-bold leading-none text-gray-900 text-white">
             Mysterious Customers
@@ -25,8 +26,7 @@
                   <input v-model="c.isSelected" type="checkbox">
                 </div>
                 <div class="flex-shrink-0">
-                  <img class="w-8 h-8 rounded-full"
-                    :src="c.image" :alt="c.name" />
+                  <img class="w-8 h-8 rounded-full" :src="c.image" :alt="c.name" />
                 </div>
                 <div class="flex-1 min-w-0 ms-4">
                   <p class="text-sm font-medium text-gray-900 truncate text-white">
@@ -45,8 +45,7 @@
         </div>
       </div>
 
-      <div
-        class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
+      <div class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
         <div class="flex items-center justify-between mb-4">
           <h5 class="text-xl font-bold leading-none text-gray-900 text-white">
             Selected Customers
@@ -54,16 +53,15 @@
         </div>
 
         <div class="flow-root">
-          
+
           <!-- TODO 選択された顧客がいない場合に表示させる -->
           <div class="text-gray-400">There is no selected customers...</div>
-          
+
           <ul role="list" class="divide-y divide-gray-200 divide-gray-700">
             <li v-for="c in selectedCustomers" class="py-3 sm:py-4">
               <div class="flex items-center">
                 <div class="flex-shrink-0">
-                  <img class="w-8 h-8 rounded-full"
-                    :src="c.image" :alt="c.name" />
+                  <img class="w-8 h-8 rounded-full" :src="c.image" :alt="c.name" />
                 </div>
                 <div class="flex-1 min-w-0 ms-4">
                   <p class="text-sm font-medium text-gray-900 truncate text-white">
