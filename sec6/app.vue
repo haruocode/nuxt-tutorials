@@ -63,7 +63,7 @@
               <div class="flex items-center">
                 <div class="flex-shrink-0">
                   <img class="w-8 h-8 rounded-full"
-                    src="https://pbs.twimg.com/profile_images/1057083258997956608/NWYuC6qb_400x400.jpg" alt="Neil image" />
+                    :src="c.image" :alt="c.name" />
                 </div>
                 <div class="flex-1 min-w-0 ms-4">
                   <p class="text-sm font-medium text-gray-900 truncate text-white">
