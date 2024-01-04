@@ -1,7 +1,7 @@
 <template>
-  <div class="p-5 bg-white bg-gray-900 antialiased" style="height: 100vh">
+  <div class="p-5 bg-gray-900 antialiased" style="height: 100vh">
     <div
-      class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
+      class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
       <div class="flex items-center justify-between mb-4">
         <h5 class="text-xl font-bold leading-none text-gray-900 text-white">
           Mysterious Customers
