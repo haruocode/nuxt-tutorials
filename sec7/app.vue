@@ -1,5 +1,6 @@
 <template>
   <div class="bg-gray-900 p-3">
+    <!-- TODO ヘッダー部のコンポーネント化 -->
     <header class="flex items-center gap-4">
       <div class="text-xl text-slate-300">大阪コード学園</div>
       <div class="flex gap-4">
@@ -17,12 +18,7 @@
         </CustomerList>
       </ListContainer>
 
-      <ListContainer title="Selected Customers">
-        <CustomerList>
-          <Message v-if="!existSelectedCustomer">There is no selected customers...</Message>
-          <CustomerItem v-for="c in selectedCustomers" :item="c" :editable="false" />
-        </CustomerList>
-      </ListContainer>
+      <!-- TODO selected customers -->
     </ContentsContainer>
   </div>
 </template>
