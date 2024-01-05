@@ -5,81 +5,25 @@
       <div class="flex gap-4">
         <button @click="deleteCustomer()"
           class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete First Customer</button>
-        <!-- TODO 顧客が1名以上選択されている場合に表示させる -->
-        <button @click="deleteSelectedCustomer()"
+        <button v-if="existSelectedCustomer" @click="deleteSelectedCustomers()"
           class="border-2 border-solid bg-gray-900 rounded p-4 text-xl text-slate-300">Delete Selected Customer</button>
       </div>
     </header>
-    <div class="flex gap-8 p-5 bg-gray-900 antialiased">
-      <div class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
-        <div class="flex items-center justify-between mb-4">
-          <h5 class="text-xl font-bold leading-none text-gray-900 text-white">
-            Mysterious Customers
-          </h5>
-        </div>
+    <ContentsContainer>
+      <ListContainer title="Mysterious Customers">
+        <CustomerList>
+          <Message v-if="customers.length === 0">There is no customers...</Message>
+          <CustomerItem v-for="c in customers" :editable="true" :item="c" />
+        </CustomerList>
+      </ListContainer>
 
-        <div class="flow-root">
-          <ul role="list" class="divide-y divide-gray-200 divide-gray-700">
-            <li v-for="c in customers" class="py-3 sm:py-4">
-              <div class="flex items-center">
-                <div class="w-6">
-                  <input v-model="c.isSelected" type="checkbox">
-                </div>
-                <div class="flex-shrink-0">
-                  <img class="w-8 h-8 rounded-full" :src="c.image" :alt="c.name" />
-                </div>
-                <div class="flex-1 min-w-0 ms-4">
-                  <p class="text-sm font-medium text-gray-900 truncate text-white">
-                    {{ c.name }}
-                  </p>
-                  <p class="text-sm text-gray-500 truncate text-gray-400">
-                    {{ c.email }}
-                  </p>
-                </div>
-                <div class="inline-flex items-center text-base font-semibold text-gray-900 text-white">
-                  {{ `$${c.amount.toLocaleString()}` }}
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="w-full max-w-md p-4 border border-gray-200 rounded-lg shadow sm:p-8 bg-gray-800 border-gray-700">
-        <div class="flex items-center justify-between mb-4">
-          <h5 class="text-xl font-bold leading-none text-gray-900 text-white">
-            Selected Customers
-          </h5>
-        </div>
-
-        <div class="flow-root">
-
-          <!-- TODO 選択された顧客がいない場合に表示させる -->
-          <div class="text-gray-400">There is no selected customers...</div>
-
-          <ul role="list" class="divide-y divide-gray-200 divide-gray-700">
-            <li v-for="c in selectedCustomers" class="py-3 sm:py-4">
-              <div class="flex items-center">
-                <div class="flex-shrink-0">
-                  <img class="w-8 h-8 rounded-full" :src="c.image" :alt="c.name" />
-                </div>
-                <div class="flex-1 min-w-0 ms-4">
-                  <p class="text-sm font-medium text-gray-900 truncate text-white">
-                    {{ c.name }}
-                  </p>
-                  <p class="text-sm text-gray-500 truncate text-gray-400">
-                    {{ c.email }}
-                  </p>
-                </div>
-                <div class="inline-flex items-center text-base font-semibold text-gray-900 text-white">
-                  {{ `$${c.amount.toLocaleString()}` }}
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+      <ListContainer title="Selected Customers">
+        <CustomerList>
+          <Message v-if="!existSelectedCustomer">There is no selected customers...</Message>
+          <CustomerItem v-for="c in selectedCustomers" :item="c" :editable="false" />
+        </CustomerList>
+      </ListContainer>
+    </ContentsContainer>
   </div>
 </template>
 
@@ -124,11 +68,13 @@ const customers = ref([
   },
 ])
 
-// TODO 算出プロパティに変更
-const selectedCustomers = []
+const selectedCustomers = computed(() => {
+  return customers.value.filter(c => c.isSelected)
+})
 
-// TODO 算出プロパティに変更
-const existSelectedCustomer = true
+const existSelectedCustomer = computed(() => {
+  return selectedCustomers.value.length > 0
+})
 
 // 先頭の顧客を削除する
 function deleteCustomer() {
@@ -136,7 +82,7 @@ function deleteCustomer() {
 }
 
 // 選択された顧客を削除する
-function deleteSelectedCustomer() {
+function deleteSelectedCustomers() {
   customers.value = customers.value.filter(c => !c.isSelected)
 }
 </script>
