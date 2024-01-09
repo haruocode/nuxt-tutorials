@@ -3,7 +3,7 @@
     <Logo />
     <div class="flex gap-4">
       <MyButton @click="$emit('deleteCustomer')">Delete First Customer</MyButton>
-      <MyButton @click="$emit('deleteSelectedCustomers')">Delete Selected Customer</MyButton>
+      <MyButton :disabled="!existSelectedCustomer" @click="$emit('deleteSelectedCustomers')">Delete Selected Customer</MyButton>
     </div>
   </header>
 </template>
