@@ -1,6 +1,5 @@
 <template>
   <div class="bg-gray-900 p-3">
-    <!-- TODO ヘッダー部のコンポーネント化 -->
     <AppHeader
       :existSelectedCustomer="existSelectedCustomer"
       @deleteCustomer="deleteCustomer"
