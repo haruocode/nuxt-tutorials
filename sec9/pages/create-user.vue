@@ -132,7 +132,7 @@ function register() {
 
 </script>
 
-<style>
+<style scoped>
 h2, p, span, label {
   color: white;
 }
