@@ -46,6 +46,20 @@
         <input type="radio" value="orange" />
         <label> 🍊</label>
 
+        <hr />
+
+        <h2>選択リスト</h2>
+        <p>selectPicked is: {{ selectPicked }}</p>
+
+        <select>
+          <option value="">選択してください</option>
+          <option value="りんご🍎">りんご🍎</option>
+          <option value="みかん🍊">みかん🍊</option>
+          <option value="パイナップル🍍">パイナップル🍍</option>
+          <option value="ぶどう🍇">ぶどう🍇</option>
+          <option value="キウイ🥝">キウイ🥝</option>
+        </select>
+
       </FormContainer>
     </ContentsContainer>
   </div>
@@ -58,6 +72,7 @@ const textareaMessage = ref('') // テキストエリア
 const checked = ref(null) // チェックボックス
 const checkedNames = ref([]) // 複数チェックボックス
 const radioPicked = ref('') // ラジオボタン
+const selectPicked = ref('') // 選択リスト
 
 </script>
 
