@@ -73,6 +73,14 @@ const checked = ref(null) // チェックボックス
 const checkedNames = ref([]) // 複数チェックボックス
 const radioPicked = ref('') // ラジオボタン
 const selectPicked = ref('') // 選択リスト
+// 選択リストの項目
+const options = ref([
+  { text: 'りんご🍎', value: 'りんご🍎' },
+  { text: 'みかん🍊', value: 'みかん🍊' },
+  { text: 'パイナップル🍍', value: 'パイナップル🍍' },
+  { text: 'ぶどう🍇', value: 'ぶどう🍇' },
+  { text: 'キウイ🥝', value: 'キウイ🥝' },
+])
 
 </script>
 
