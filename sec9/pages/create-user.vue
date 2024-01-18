@@ -12,34 +12,12 @@
           <label>生年月日</label>
           <select>
             <option value="">-</option>
-            <option>1960</option>
-            <option>1970</option>
-            <option>1980</option>
-            <option>1990</option>
-            <option>2000</option>
-            <option>2010</option>
-            <option>2020</option>
           </select><span>年</span>
           <select>
             <option value="">-</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
           </select><span>月</span>
           <select>
             <option value="">-</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
           </select><span>日</span>
         </div>
 
@@ -110,6 +88,10 @@ const user = reactive({
   public: false,
 })
 
+const yearOptions = ref([])
+const monthOptions = ref([])
+const dateOptions = ref([])
+
 const birth = computed(() => {
   if(!user.birthYear || !user.birthMonth || !user.birthDate) return ''
   return `${user.birthYear}年${user.birthMonth}月${user.birthDate}日`
@@ -129,6 +111,27 @@ function register() {
   // 本来はユーザー登録のWeb APIを実行する
   console.log('登録ボタンが押下されました', toRaw(user))
 }
+
+onMounted(() => {
+  // 選択リストの「年」の設定
+  let years = []
+  for(let i = 1940; i <= 2024; i++) {
+    years.push(i)
+  }
+  yearOptions.value = years
+  // 選択リストの「月」の設定
+  let months = []
+  for(let i = 1; i <= 12; i++) {
+    months.push(i)
+  }
+  monthOptions.value = months
+  // 選択リストの「日」の設定
+  let dates = []
+  for(let i = 1; i <= 31; i++) {
+    dates.push(i)
+  }
+  dateOptions.value = dates
+})
 
 </script>
 
