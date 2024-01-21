@@ -92,6 +92,8 @@ const yearOptions = ref([])
 const monthOptions = ref([])
 const dateOptions = ref([])
 
+const hobbies = ref(['音楽', '映画', 'ドラマ', 'スポーツ', '裁縫', '演劇', '読書', '旅行'])
+
 const birth = computed(() => {
   if(!user.birthYear || !user.birthMonth || !user.birthDate) return ''
   return `${user.birthYear}年${user.birthMonth}月${user.birthDate}日`
