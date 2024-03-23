@@ -1,75 +1,54 @@
-# Nuxt 3 Minimal Starter
+# TODOアプリ with Nuxt+Prisma+Supabase
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+よかったらどうぞ。
 
-## Setup
+## prisma/schema.prisma
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+```
+model Todos {
+  id          Int      @id @default(autoincrement())
+  task        String
+  isCompleted Boolean
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt
+}
 ```
 
-## Development Server
+## prisma/seed.ts
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient()
 
-## Production
+async function seedTodos() {
+  try {
 
-Build the application for production:
+    await prisma.todos.create({
+      data: {
+        task: "顔を洗う",
+        isCompleted: false
+      },
+    })
 
-```bash
-# npm
-npm run build
+    await prisma.todos.create({
+      data: {
+        task: "歯を磨く",
+        isCompleted: false
+      },
+    })
 
-# pnpm
-pnpm run build
+    await prisma.todos.create({
+      data: {
+        task: "酒を煮切る",
+        isCompleted: false
+      },
+    })
+  } catch (error) {
+    console.error(error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
 
-# yarn
-yarn build
-
-# bun
-bun run build
+seedTodos()
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
