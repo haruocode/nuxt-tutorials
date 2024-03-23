@@ -8,7 +8,7 @@
 model Todos {
   id          Int      @id @default(autoincrement())
   task        String
-  isCompleted Boolean
+  isComplete  Boolean
   createdAt   DateTime @default(now()) @db.Timestamptz(6)
   updatedAt   DateTime @updatedAt
 }
@@ -26,21 +26,21 @@ async function seedTodos() {
     await prisma.todos.create({
       data: {
         task: "顔を洗う",
-        isCompleted: false
+        isComplete: false
       },
     })
 
     await prisma.todos.create({
       data: {
         task: "歯を磨く",
-        isCompleted: false
+        isComplete: false
       },
     })
 
     await prisma.todos.create({
       data: {
         task: "酒を煮切る",
-        isCompleted: false
+        isComplete: false
       },
     })
   } catch (error) {
