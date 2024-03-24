@@ -14,7 +14,7 @@ model Todos {
 }
 ```
 
-## prisma/seed.ts
+## prisma/seed.js
 
 ```
 import { PrismaClient } from "@prisma/client"
