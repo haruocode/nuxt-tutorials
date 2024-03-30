@@ -10,11 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/supabase": "^1.1.7",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@prisma/client": "^5.11.0",
     "nuxt": "^3.11.1",
-    "prisma": "^5.11.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   }
