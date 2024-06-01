@@ -36,4 +36,5 @@ model Wish {
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
   wishlistId Int
   title      String
+  granted    Boolean
 }
