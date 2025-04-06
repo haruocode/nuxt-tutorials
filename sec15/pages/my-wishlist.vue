@@ -170,10 +170,11 @@ onMounted(async () => {
 
   if (error || !session) {
     console.error('セッション取得エラー', error)
+    navigateTo('/login')
     return
   }
 
-  // 願いリストを取得
+  // 願いリスト取得処理はここに続く
   const response = await $fetch('/api/wishes', {
     method: 'GET',
     headers: {
