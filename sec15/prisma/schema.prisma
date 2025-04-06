@@ -13,6 +13,7 @@ model Wish {
   id        Int      @id @default(autoincrement())
   userId    String
   title     String
+  like      Int      @default(0)
   createdAt DateTime @default(now())
 
   @@index([userId])

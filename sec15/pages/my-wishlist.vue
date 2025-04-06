@@ -4,38 +4,38 @@
 
     <!-- 願いを入力するフォーム -->
     <form @submit.prevent="addWish" class="flex gap-2 mb-6">
-      <input
-        v-model="newWish"
-        type="text"
-        placeholder="願いを入力..."
-        class="border px-4 py-2 rounded w-80"
-      />
-      <button
-        type="submit"
-        class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
-      >
+      <input v-model="newWish" type="text" placeholder="願いを入力..." class="border px-4 py-2 rounded w-80" />
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
         登録
       </button>
     </form>
 
     <!-- 願いリストの表示 -->
-    <div v-if="wishes.length > 0" class="flex flex-col gap-2 w-80">
-      <div v-for="wish in wishes" :key="wish.id" class="flex justify-between items-center border px-4 py-2 rounded">
-        <div v-if="editingId === wish.id" class="flex gap-2 w-full">
-          <input
-            v-model="editedTitle"
-            class="border px-2 py-1 flex-1"
-          />
-          <button @click="saveWish(wish.id)" class="text-green-500 hover:underline">
-            保存
-          </button>
-          <button @click="cancelEdit" class="text-gray-500 hover:underline">
-            キャンセル
-          </button>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+      <div v-for="wish in wishes" :key="wish.id"
+        class="bg-white rounded-xl shadow-md p-6 flex flex-col justify-between">
+        <div v-if="editingId === wish.id">
+          <input v-model="editedTitle" class="border px-2 py-1 w-full mb-2" placeholder="願いを編集..." />
+          <div class="flex gap-2 justify-end text-sm">
+            <button @click="saveWish(wish.id)" class="text-green-500 hover:underline">
+              保存
+            </button>
+            <button @click="cancelEdit" class="text-gray-500 hover:underline">
+              キャンセル
+            </button>
+          </div>
         </div>
-        <div v-else class="flex justify-between w-full">
-          <span>{{ wish.title }}</span>
-          <div class="flex gap-2">
+
+        <div v-else>
+          <h2 class="text-xl font-semibold mb-2">{{ wish.title }}</h2>
+          <div class="flex items-center gap-2 text-gray-600 text-sm">
+            <span>♥ {{ wish.like }}</span>
+            <button @click="likeWish(wish.id)" class="text-pink-500 hover:underline">
+              いいね
+            </button>
+          </div>
+
+          <div class="flex gap-4 mt-4 justify-end text-sm">
             <button @click="startEdit(wish)" class="text-blue-500 hover:underline">
               編集
             </button>
@@ -46,13 +46,13 @@
         </div>
       </div>
     </div>
-    <div v-else class="text-gray-500">まだ願いはありません。</div>
+
+    <NuxtLink to="/profile" class="mt-8 underline text-blue-500">
+      プロフィールページへ
+    </NuxtLink>
 
     <!-- ログアウトボタン -->
-    <button
-      @click="logout"
-      class="mt-10 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600"
-    >
+    <button @click="logout" class="mt-10 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">
       ログアウト
     </button>
   </div>
@@ -160,6 +160,31 @@ const saveWish = async (id) => {
   }
 
   cancelEdit()
+}
+
+const likeWish = async (id) => {
+  const {
+    data: { session },
+    error
+  } = await supabase.auth.getSession()
+
+  if (error || !session) {
+    console.error('セッション取得エラー', error)
+    return
+  }
+
+  const updated = await $fetch(`/api/wishes/${id}/like`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${session.access_token}`
+    }
+  })
+
+  // ローカルリストを更新
+  const index = wishes.value.findIndex(w => w.id === id)
+  if (index !== -1) {
+    wishes.value[index].like = updated.like
+  }
 }
 
 onMounted(async () => {
