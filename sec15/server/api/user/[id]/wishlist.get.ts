@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
-import { useSupabaseServer } from '#supabase/server'
+import { serverSupabaseClient } from '#supabase/server'
 const prisma = new PrismaClient()
 
 export default eventHandler(async (event) => {
   // 認証チェック
-  const supabase = useSupabaseServer(event)
+  const supabase = serverSupabaseClient(event)
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
