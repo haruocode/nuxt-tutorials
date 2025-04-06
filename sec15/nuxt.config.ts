@@ -1,23 +1,29 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/supabase',
-    '@nuxt/ui'
   ],
+  css: [
+    '@/assets/css/main.css',
+  ],
+  tailwindcss: {
+    viewer: false
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   supabase: {
-    // Supabaseの設定
-    redirect: {
+    redirect: true,
+    redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      home: '/'
-    }
-  },
-  runtimeConfig: {
-    // 環境変数を設定
-    public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'
     }
   }
 })

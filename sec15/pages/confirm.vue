@@ -1,71 +1,35 @@
 <template>
-  <div class="text-center">
-    <UCard class="max-w-md mx-auto">
-      <template #header>
-        <h1 class="text-xl font-semibold">認証完了</h1>
-      </template>
-
-      <div v-if="loading" class="flex flex-col items-center py-4">
-        <UIcon name="i-heroicons-arrow-path" class="animate-spin h-8 w-8 text-indigo-600" />
-        <p class="mt-2">ユーザー情報を確認中...</p>
-      </div>
-
-      <div v-else-if="error" class="text-red-600">
-        {{ error }}
-      </div>
-
-      <template #footer>
-        <div class="flex justify-center">
-          <UButton color="indigo" to="/">ホームに戻る</UButton>
-        </div>
-      </template>
-    </UCard>
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-2xl font-bold mb-6">ログイン確認中...</h1>
+    <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
   </div>
 </template>
 
 <script setup>
-const loading = ref(true)
-const error = ref(null)
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
-const router = useRouter()
-const prisma = usePrisma()
+const errorMessage = ref('')
 
-// ユーザーのログイン情報が揃ったら、DBにユーザー情報を保存
 onMounted(async () => {
-  try {
-    if (user.value) {
-      const { data: existingUser } = await supabase
-        .from('User')
-        .select('id')
-        .eq('email', user.value.email)
-        .single()
+  // Supabase側で自動的にセッション復元（codeやaccess_token処理）
+  const { data, error } = await supabase.auth.getSession()
 
-      if (!existingUser) {
-        // Prismaを使用してユーザーを作成
-        await prisma.user.create({
-          data: {
-            name: user.value.user_metadata.name || user.value.email,
-            email: user.value.email,
-            provider: user.value.app_metadata.provider,
-            oAuthId: user.value.id,
-            wishlist: {
-              create: {
-                title: `${user.value.user_metadata.name || 'My'}の願いリスト`,
-                isPublic: true
-              }
-            }
-          }
-        })
-      }
+  console.log("come here???")
 
-      router.push('/my-wishlist')
-    }
-  } catch (err) {
-    error.value = '処理中にエラーが発生しました'
-    console.error('Error during auth confirmation:', err)
-  } finally {
-    loading.value = false
+  if (error) {
+    errorMessage.value = 'ログインエラー: ' + error.message
+    console.error(error)
+    return
+  }
+
+  if (user.value) {
+    // ユーザー情報が取れていれば、マイページ（例: /my-wishlist）へリダイレクト！
+    router.push('/my-wishlist')
+  } else {
+    errorMessage.value = 'ユーザー情報が取得できませんでした'
   }
 })
 </script>
