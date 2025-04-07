@@ -17,22 +17,6 @@
     <div v-if="loading" class="my-6 text-gray-500 dark:text-gray-400">
       読み込み中...
     </div>
-
-    <div v-if="user" class="flex gap-4 mb-6">
-      <NuxtLink
-        to="/my-wishlist"
-        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        マイページ
-      </NuxtLink>
-
-      <button
-        @click="logout"
-        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-      >
-        ログアウト
-      </button>
-    </div>
   </div>
 </template>
 
@@ -49,11 +33,6 @@ const loading = ref(false)
 const limit = 10
 let offset = 0
 let finished = false
-
-const logout = async () => {
-  await supabase.auth.signOut()
-  router.push('/login')
-}
 
 const likeWish = async (id) => {
   const {
