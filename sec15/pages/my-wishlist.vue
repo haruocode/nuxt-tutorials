@@ -46,15 +46,6 @@
         </div>
       </div>
     </div>
-
-    <NuxtLink to="/profile" class="mt-8 underline text-blue-500">
-      プロフィールページへ
-    </NuxtLink>
-
-    <!-- ログアウトボタン -->
-    <button @click="logout" class="mt-10 bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">
-      ログアウト
-    </button>
   </div>
 </template>
 
