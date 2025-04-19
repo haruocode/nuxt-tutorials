@@ -30,9 +30,6 @@
           <h2 class="text-xl font-semibold mb-2">{{ wish.title }}</h2>
           <div class="flex items-center gap-2 text-gray-600 text-sm">
             <span>♥ {{ wish.like }}</span>
-            <button @click="likeWish(wish.id)" class="text-pink-500 hover:underline">
-              いいね
-            </button>
           </div>
 
           <div class="flex gap-4 mt-4 justify-end text-sm">
@@ -151,31 +148,6 @@ const saveWish = async (id) => {
   }
 
   cancelEdit()
-}
-
-const likeWish = async (id) => {
-  const {
-    data: { session },
-    error
-  } = await supabase.auth.getSession()
-
-  if (error || !session) {
-    console.error('セッション取得エラー', error)
-    return
-  }
-
-  const updated = await $fetch(`/api/wishes/${id}/like`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${session.access_token}`
-    }
-  })
-
-  // ローカルリストを更新
-  const index = wishes.value.findIndex(w => w.id === id)
-  if (index !== -1) {
-    wishes.value[index].like = updated.like
-  }
 }
 
 onMounted(async () => {
