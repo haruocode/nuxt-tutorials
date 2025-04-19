@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen">
+  <div class="flex flex-col items-center min-h-screen pt-16">
     <h1 class="text-2xl font-bold mb-6">ログイン</h1>
     <button
       class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700"
